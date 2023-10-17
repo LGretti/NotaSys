@@ -52,9 +52,13 @@ namespace NotaSys.Controllers {
                         XAttribute idAttr = infNFe.Attribute("Id");
                         if (idAttr != null) {
                             string id = idAttr.Value;
-  
+
+                            // TODO : Metodo que recebe o Id e converte para os demais dados necessarios
+                            //https://www.oobj.com.br/bc/article/como-é-formada-a-chave-de-acesso-de-uma-nf-e-nfc-e-de-um-ct-e-e-um-mdf-e-281.html
+
+
                             Arquivo arquivo = new Arquivo(xml, id); 
-                            
+
                             if (ModelState.IsValid) {
                                 _context.Arquivos.Add(arquivo);
                                 _context.SaveChanges();
