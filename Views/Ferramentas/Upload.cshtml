@@ -1,0 +1,21 @@
+@model NotaSys.Models.Arquivo
+
+<h1 class="text-center display-4">
+  Upload de Notas
+</h1>
+
+<br>
+
+
+<form enctype="multipart/form-data" method="post">
+    <dl>
+        <dt>
+            <label asp-for="ArquivoXml">Selecione o diretório das notas fiscais</label>
+        </dt>
+        <dd>
+            <input asp-for="ArquivoXml" type="file" multiple="multiple" webkitdirectory>
+            <span asp-validation-for="ArquivoXml"></span>
+        </dd>
+    </dl>
+    <input asp-page-handler="Upload" class="btn-primary" type="submit" value="Upload" />
+</form>
