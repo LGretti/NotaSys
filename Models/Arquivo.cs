@@ -14,6 +14,16 @@ namespace NotaSys.Models
         public string Id { get; private set; }
         public UfEnum UnidadeFederativa { get; private set; }
         public string Cnpj { get; private set; }
+        public DateTime DEmissao { get; private set; }
+
+        /*//construtor com todas as propriedades
+        public Arquivo(XDocument arquivoXml, String id, UfEnum unidadeFederatuva, string cnpj, DateTime dEmissao) {
+            ArquivoXml = arquivoXml;
+            Id = id;
+            UnidadeFederativa = unidadeFederatuva;
+            Cnpj = cnpj;
+            DEmissao = dEmissao;
+        }*/
 
         public Arquivo(XDocument arquivoXml) {
             ArquivoXml = arquivoXml;
@@ -35,7 +45,16 @@ namespace NotaSys.Models
                 }
             }
 
-             UfEnum.TryParse(Id.Substring(3, 2), out UfEnum UnidadeFederativa);
+            DateTime.TryParse (
+                ArquivoXml
+                .Element(ns + "nfeProc")
+                .Element(ns + "NFe")
+                .Element(ns + "infNFe")
+                .Element(ns + "ide")
+                .Element(ns + "dhEmi")
+                .Value, out DateTime DEmissao);
+
+            UfEnum.TryParse(Id.Substring(3, 2), out UfEnum UnidadeFederativa);
 
             Cnpj = Id.Substring(9, 14);
         }

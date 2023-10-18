@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using NotaSys.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Get connection string
+builder.Services.AddDbContext<NotaSysContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("Main")));
 
 var app = builder.Build();
 
