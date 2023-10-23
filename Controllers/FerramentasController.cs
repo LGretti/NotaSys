@@ -17,8 +17,9 @@ namespace NotaSys.Controllers {
         private readonly ILogger<FerramentasController> _logger;
         private readonly NotaSysContext _context;
 
-        public FerramentasController(ILogger<FerramentasController> logger) {
+        public FerramentasController(ILogger<FerramentasController> logger, NotaSysContext context) {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index() {
@@ -31,6 +32,8 @@ namespace NotaSys.Controllers {
 
         [HttpPost]
         public IActionResult Upload(List<IFormFile> ArquivoXml) {
+            int n = 0;
+
             foreach (IFormFile arquivoxml in ArquivoXml) {
                 //Convertendo para XML
                 using (MemoryStream str = new MemoryStream()) {
@@ -39,16 +42,20 @@ namespace NotaSys.Controllers {
                     XDocument xml = XDocument.Load(str);
 
                     // TODO : Metodo que recebe o Id e converte para os demais dados necessarios
-                    //https://www.oobj.com.br/bc/article/como-é-formada-a-chave-de-acesso-de-uma-nf-e-nfc-e-de-um-ct-e-e-um-mdf-e-281.html
+                    //https://www.oobj.com.br/bc/article/como-ï¿½-formada-a-chave-de-acesso-de-uma-nf-e-nfc-e-de-um-ct-e-e-um-mdf-e-281.html
 
-                    Arquivo arquivo = new Arquivo(xml);
+                    Arquivo arquivo = new Arquivo(xml.ToString());
 
                     if (ModelState.IsValid) {
                         _context.Arquivos.Add(arquivo);
                         _context.SaveChanges();
-                        return RedirectToAction(nameof(Index));
+                        n++;
                     }
                 }
+            }
+
+            if (n == ArquivoXml.Count) {
+                return RedirectToAction(nameof(Index));
             }
 
             return View();

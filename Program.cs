@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NotaSys.Context;
+using NotaSys.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
