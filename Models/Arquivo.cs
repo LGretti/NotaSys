@@ -50,47 +50,7 @@ namespace NotaSys.Models
             xmlReader.ReadToFollowing("dhEmi");
             DEmissao = xmlReader.ReadElementContentAsDateTime();
 
-            //int.TryParse(Id.Substring(0, 2), out int UnidadeFederativa);
-
             Cnpj = Id.Substring(9, 14);
-
-
-            /*//Recupera a tag infNFe
-            XNamespace ns = "http://www.portalfiscal.inf.br/nfe";
-            
-            if (arquivoXml.Element(ns + "nfeProc").Element(ns + "NFe").Element(ns + "infNFe") == null) {
-
-            }
-
-            XElement? infNFe = arquivoXml.Element(ns + "nfeProc").Element(ns + "NFe").Element(ns + "infNFe");
-
-            if (infNFe == null) { //cancelada
-                infNFe = arquivoXml.Element("NFeDFe").Element(ns + "procNFe").Element(ns + "NFe").Element(ns + "infNFe");
-            }
-
-            //Pela tag busca o Atributo Id e grava em uma variavel caso haja o valor
-            if (infNFe != null) {
-                XAttribute idAttr = infNFe.Attribute("Id");
-
-                if (idAttr != null) {
-                    Id = idAttr.Value;
-                }
-            } else {
-                throw new Exception("Tag infNFe não localizada. Verifique os arquivos enviados!");
-            }
-
-            DateTime.TryParse (
-                arquivoXml
-                .Element(ns + "nfeProc")
-                .Element(ns + "NFe")
-                .Element(ns + "infNFe")
-                .Element(ns + "ide")
-                .Element(ns + "dhEmi")
-                .Value, out DateTime DEmissao);
-
-            int.TryParse(Id.Substring(3, 2), out int UnidadeFederativa);
-
-            Cnpj = Id.Substring(9, 14);*/
         }
     }
 }
